@@ -374,8 +374,11 @@ loop:
             error = 'Composition duration must be not greater than 3 seconds';
         }
 
-        if (error == null && (data.w != 512 || data.h != 512)) {
-            error = 'Composition dimensions should be exactly 512x512px';
+        var allowedDimensions = data.w == 512 && data.h == 512;
+        allowedDimensions = allowedDimensions || (data.w == 100 && data.h == 100);
+
+        if (error == null && !allowedDimensions) {
+            error = 'Composition dimensions should be exactly 512x512px for stickers or 100x100 for sticker pack icons';
         }
 
         if (error == null && data.ddd != null && data.ddd != 0) {
